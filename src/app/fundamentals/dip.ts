@@ -3,6 +3,7 @@ import TerminalUtil from '../utils/terminalUtil';
 import Fusca from '@/core/fundamentals/fusca';
 import Ferrari from '@/core/fundamentals/ferrari';
 import Civic from '@/core/fundamentals/civic';
+import { terminal } from 'terminal-kit';
 
 export default async function Dip() {
   TerminalUtil.title('DIP');
@@ -17,6 +18,6 @@ export default async function Dip() {
   else
     car = new Ferrari();
 
-  race(car);
+  race(car, terminal.green);
   await TerminalUtil.waitEnter();
 }
