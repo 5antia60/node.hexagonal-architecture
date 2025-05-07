@@ -1,7 +1,7 @@
 import Car from '@/core/fundamentals/car';
+import Fusca from '@/core/fundamentals/fusca';
 import TerminalUtil from '../utils/terminalUtil';
 import Ferrari from '@/core/fundamentals/ferrari';
-import Fusca from '@/core/fundamentals/fusca';
 
 export default async function Polymorphism() {
   TerminalUtil.title('Polimorfismo');
