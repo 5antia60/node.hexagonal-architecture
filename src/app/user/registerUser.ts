@@ -1,6 +1,8 @@
 import User from '@/core/user/model/user';
 import TerminalUtil from '../utils/terminalUtil';
 import RegisterUserService from '@/core/user/service/RegisterUserService';
+import InvertCryptoPasswordService from '@/app/adapters/auth/InvertCryptoPasswordService';
+import SpaceCryptoPassword from '../adapters/auth/SpaceCryptoPassword';
 
 export default async function RegisterUser(): Promise<void> {
   TerminalUtil.title('Registrar Usuário');
@@ -11,8 +13,13 @@ export default async function RegisterUser(): Promise<void> {
   const password = await TerminalUtil.requiredFiled('Senha: ');
   const user: User = { id, name, email, password };
 
+  const cryptoPasswordService = new SpaceCryptoPassword();
+  // const cryptoPasswordService = new InvertCryptoPasswordService();
+  
+  const registerUserService = new RegisterUserService(cryptoPasswordService);
+
   try {
-    await new RegisterUserService().execute(user);
+    await registerUserService.execute(user);
     TerminalUtil.success('Usuário registrado com sucesso!');
   } catch (error: any) {
     TerminalUtil.error(error.message || String(error));
