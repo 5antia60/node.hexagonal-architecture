@@ -16,6 +16,19 @@ export default class TerminalUtil {
     terminal.yellow(key).green(value).white('\n');
   }
 
+  static async requiredFiled(label: string, defaultValue: string = ''): Promise<string> {
+    terminal.yellow(`\n${ label }`);
+    
+    const value = await terminal.inputField({
+      default: defaultValue,
+    }).promise;
+
+    if (value)
+      return value;
+
+    return TerminalUtil.requiredFiled(label);
+  }
+
   static async menu(options: string[]): Promise<[number, string]> {
     const result = await terminal.singleColumnMenu(options).promise;
     return [result.selectedIndex, result.selectedText];
@@ -38,5 +51,13 @@ export default class TerminalUtil {
   static async waitEnter(): Promise<void> {
     terminal.white('\nPressione ENTER para continuar...');
     await terminal.inputField({ echo: false }).promise;
+  }
+
+  static success(text: string, dropLine: boolean = true): void {
+    terminal.green((dropLine ? '\n' : '') + text);
+  }
+  
+  static error(text: string, dropLine: boolean = true): void {
+    terminal.red((dropLine ? '\n' : '') + text);
   }
 }

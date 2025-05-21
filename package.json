@@ -1,5 +1,5 @@
 {
-    "name": "projeto",
+    "name": "node.hexagonal-architecture",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -9,7 +9,7 @@
         "test": "jest"
     },
     "keywords": [],
-    "author": "Leonardo Moura Leitão",
+    "author": "5antia60",
     "license": "ISC",
     "devDependencies": {
         "@types/jest": "^29.5.3",
