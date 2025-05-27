@@ -2,10 +2,9 @@ import UiUtilsGateway from '@/core/shared/gateway/UiUtilsGateway';
 import { terminal } from 'terminal-kit';
 
 export default class TerminalUtilService implements UiUtilsGateway {
-
   public title(text: string): void {
     terminal.clear();
-    terminal.magenta(`${ text }\n`);
+    terminal.magenta(`${text}\n`);
     terminal.magenta('-'.repeat(text.length) + '\n');
   }
 
@@ -13,19 +12,18 @@ export default class TerminalUtilService implements UiUtilsGateway {
     terminal.clear();
   }
 
-  public showValueKey(key: string, value: string|number): void {
+  public showValueKey(key: string, value: string | number): void {
     terminal.yellow(key).green(value).white('\n');
   }
 
   public async requiredField(label: string, defaultValue: string = ''): Promise<string> {
-    terminal.yellow(`\n${ label }`);
-    
+    terminal.yellow(`\n${label}`);
+
     const value = await terminal.inputField({
-      default: defaultValue,
+      default: defaultValue
     }).promise;
 
-    if (value)
-      return value;
+    if (value) return value;
 
     return this.requiredField(label);
   }
@@ -57,7 +55,7 @@ export default class TerminalUtilService implements UiUtilsGateway {
   public success(text: string, dropLine: boolean = true): void {
     terminal.green((dropLine ? '\n' : '') + text);
   }
-  
+
   public error(text: string, dropLine: boolean = true): void {
     terminal.red((dropLine ? '\n' : '') + text);
   }

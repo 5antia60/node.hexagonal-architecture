@@ -3,7 +3,7 @@ import CarGateway from '../gateway/CarGateway';
 export default class CivicService implements CarGateway {
   constructor(
     readonly maxSpeed: number = 208,
-    private _currentSpeed: number = 0,
+    private _currentSpeed: number = 0
   ) {}
 
   accelerate(): void {

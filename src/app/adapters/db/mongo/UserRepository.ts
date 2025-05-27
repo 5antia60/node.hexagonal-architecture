@@ -19,8 +19,7 @@ export default class UserRepository implements UserGateway {
   async findByEmail(email: string): Promise<UserInterface | null> {
     const user = await this.collection.findOne({ email });
 
-    if (!user)
-      return null;
+    if (!user) return null;
 
     return user;
   }

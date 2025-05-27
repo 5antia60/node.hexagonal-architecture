@@ -9,7 +9,7 @@ import UserRepository from '../../adapters/db/mongo/UserRepository';
 // import InvertCryptoPasswordService from '@/app/adapters/auth/InvertCryptoPasswordService';
 
 export default async function RegisterUser(): Promise<void> {
-  const terminalUtilService = new TerminalUtilService()
+  const terminalUtilService = new TerminalUtilService();
   const uiUtils = new UiUtilsService(terminalUtilService);
 
   uiUtils.title('Registrar Usuário');

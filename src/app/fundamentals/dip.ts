@@ -10,12 +10,9 @@ export default async function Dip(uiUtils: UiUtilsGateway): Promise<void> {
   const [type] = await uiUtils.select('Tipo de carro?', ['Fusca', 'Civic', 'Ferrari']);
 
   let car;
-  if (type === 0)
-    car = new FuscaService();
-  else if (type === 1)
-    car = new CivicService();
-  else
-    car = new FerrariService();
+  if (type === 0) car = new FuscaService();
+  else if (type === 1) car = new CivicService();
+  else car = new FerrariService();
 
   race(car, uiUtils.success);
   await uiUtils.waitEnter();

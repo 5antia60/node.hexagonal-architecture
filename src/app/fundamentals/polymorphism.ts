@@ -11,16 +11,15 @@ export default async function Polymorphism(uiUtils: UiUtilsGateway): Promise<voi
 
   while (true) {
     uiUtils.clear();
-    uiUtils.showValueKey('Velocidade Máxima: ', `${ car.maxSpeed } km/h`);
-    uiUtils.showValueKey('Velocidade Atual: ', `${ car.currentSpeed } km/h`);
+    uiUtils.showValueKey('Velocidade Máxima: ', `${car.maxSpeed} km/h`);
+    uiUtils.showValueKey('Velocidade Atual: ', `${car.currentSpeed} km/h`);
 
     const [option] = await uiUtils.select('Qual opção?', ['Acelerar', 'Frear']);
-    
+
     option === 0 ? car.accelerate() : car.brake();
 
     const stay = await uiUtils.confirm('Deseja continuar?');
 
-    if (!stay)
-      return;
+    if (!stay) return;
   }
 }

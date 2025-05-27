@@ -6,4 +6,4 @@ import MainMenu from './app/ui/menu/mainMenu';
 
 run()
   .then(() => MainMenu())
-  .catch(error => console.error("Erro ao iniciar aplicação:", error));
+  .catch(error => console.error('Erro ao iniciar aplicação:', error));

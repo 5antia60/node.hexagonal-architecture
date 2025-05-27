@@ -8,11 +8,7 @@ const uiUtils = new UiUtilsService(new TerminalUtilService());
 export default async function userMenu(): Promise<void> {
   uiUtils.title('Usuário');
 
-  const [index] = await uiUtils.menu([
-    '1. Registrar Usuário',
-    '2. Encontrar Usuário',
-    'Voltar',
-  ]);
+  const [index] = await uiUtils.menu(['1. Registrar Usuário', '2. Encontrar Usuário', 'Voltar']);
 
   switch (index) {
     case 0:
@@ -23,7 +19,8 @@ export default async function userMenu(): Promise<void> {
       await FindUser();
       break;
 
-    default: return;
+    default:
+      return;
   }
 
   await userMenu();

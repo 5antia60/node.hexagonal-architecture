@@ -8,11 +8,7 @@ const uiUtils = new UiUtilsService(new TerminalUtilService());
 export default async function fundamentalsMenu(): Promise<void> {
   uiUtils.title('Fundamentos');
 
-  const [index] = await uiUtils.menu([
-    '1. Polimorfismo',
-    '2. DIP',
-    'Voltar',
-  ]);
+  const [index] = await uiUtils.menu(['1. Polimorfismo', '2. DIP', 'Voltar']);
 
   switch (index) {
     case 0:
@@ -23,7 +19,8 @@ export default async function fundamentalsMenu(): Promise<void> {
       await Dip(uiUtils);
       break;
 
-    default: return;
+    default:
+      return;
   }
 
   await fundamentalsMenu();

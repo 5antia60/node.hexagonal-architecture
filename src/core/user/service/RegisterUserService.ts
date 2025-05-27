@@ -6,27 +6,24 @@ import CryptoGateway from '../gateway/CryptoGateway';
 import UserGateway from '../gateway/UserGateway';
 
 export default class RegisterUserService implements UseCaseGateway<UserInterface, void> {
-
   constructor(
     private repository: UserGateway,
-    private cryptoProvider: CryptoGateway,
-  ) { }
+    private cryptoProvider: CryptoGateway
+  ) {}
 
   async execute(user: UserInterface): Promise<void> {
     const cryptoPassword = this.cryptoProvider.encrypt(user.password);
     const existingUser = await this.repository.findByEmail(user.email);
 
-    if (existingUser)
-      throw new Error(Errors.userAlreadyExists);
+    if (existingUser) throw new Error(Errors.userAlreadyExists);
 
     const newUser = {
       id: Id.generateHash(),
       name: user.name,
       email: user.email,
-      password: cryptoPassword,
+      password: cryptoPassword
     };
 
     this.repository.insert(newUser);
   }
-
 }

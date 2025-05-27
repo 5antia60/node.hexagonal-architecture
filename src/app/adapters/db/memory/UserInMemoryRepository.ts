@@ -8,8 +8,7 @@ export default class UserInMemoryRepository implements UserGateway {
     const items = UserInMemoryRepository.items;
     const existingUser = await this.findByEmail(user.email);
 
-    if (existingUser)
-      return;
+    if (existingUser) return;
 
     items.push(user);
   }

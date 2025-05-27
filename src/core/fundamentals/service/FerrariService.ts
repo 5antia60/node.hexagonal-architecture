@@ -3,7 +3,7 @@ import CarGateway from '../gateway/CarGateway';
 export default class FerrariService implements CarGateway {
   constructor(
     readonly maxSpeed: number = 324,
-    private _currentSpeed: number = 0,
+    private _currentSpeed: number = 0
   ) {}
 
   accelerate(): void {

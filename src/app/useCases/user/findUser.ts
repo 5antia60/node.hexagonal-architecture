@@ -3,7 +3,7 @@ import FindUserService from '@/core/user/service/FindUserService';
 import UserRepository from '../../adapters/db/mongo/UserRepository';
 import TerminalUtilService from '../../ui/utils/TerminalUtilService';
 
-const terminalUtilService = new TerminalUtilService()
+const terminalUtilService = new TerminalUtilService();
 const uiUtils = new UiUtilsService(terminalUtilService);
 
 export default async function FindUser(): Promise<void> {
@@ -13,7 +13,7 @@ export default async function FindUser(): Promise<void> {
 
   const repository = new UserRepository();
   // const repository = new UserInMemoryRepository();
-  
+
   const findUserService = new FindUserService(repository);
 
   try {

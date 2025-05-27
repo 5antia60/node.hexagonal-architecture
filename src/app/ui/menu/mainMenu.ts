@@ -8,11 +8,7 @@ const uiUtils = new UiUtilsService(new TerminalUtilService());
 export default async function MainMenu(): Promise<void> {
   uiUtils.title('Menu Principal');
 
-  const [index] = await uiUtils.menu([
-    '1. Fundamentos',
-    '2. Usuário',
-    'Sair',
-  ]);
+  const [index] = await uiUtils.menu(['1. Fundamentos', '2. Usuário', 'Sair']);
 
   switch (index) {
     case 0:
