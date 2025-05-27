@@ -1,23 +1,22 @@
 import UserInterface from '@/core/user/model/UserInterface';
 import UiUtilsService from '@/core/shared/service/UiUtilsService';
 import RegisterUserService from '@/core/user/service/RegisterUserService';
-import TerminalUtilService from '../../ui/utils/TerminalUtilService';
 import CryptoPasswordService from '../../adapters/auth/CryptoPasswordService';
+import TerminalUtilService from '../../ui/utils/TerminalUtilService';
 import UserRepository from '../../adapters/db/mongo/UserRepository';
 // import UserInMemoryRepository from '../adapters/db/UserInMemoryRepository';
 // import SpaceCryptoPassword from '../adapters/auth/SpaceCryptoPassword';
 // import InvertCryptoPasswordService from '@/app/adapters/auth/InvertCryptoPasswordService';
 
-const uiUtils = new UiUtilsService(new TerminalUtilService());
-
 export default async function RegisterUser(): Promise<void> {
-  const { requiredField, title, success, error, waitEnter } = await uiUtils;
+  const terminalUtilService = new TerminalUtilService()
+  const uiUtils = new UiUtilsService(terminalUtilService);
 
-  title('Registrar Usuário');
+  uiUtils.title('Registrar Usuário');
 
-  const name = await requiredField('Nome: ');
-  const email = await requiredField('E-mail: ');
-  const password = await requiredField('Senha: ');
+  const name = await uiUtils.requiredField('Nome: ');
+  const email = await uiUtils.requiredField('E-mail: ');
+  const password = await uiUtils.requiredField('Senha: ');
   const user: UserInterface = { name, email, password };
 
   const repository = new UserRepository();
@@ -30,10 +29,10 @@ export default async function RegisterUser(): Promise<void> {
 
   try {
     await registerUserService.execute(user);
-    success('Usuário registrado com sucesso!');
+    uiUtils.success('Usuário registrado com sucesso!');
   } catch (e: any) {
-    error(e.message || String(e));
+    uiUtils.error(e.message || String(e));
   } finally {
-    await waitEnter();
+    await uiUtils.waitEnter();
   }
 }
