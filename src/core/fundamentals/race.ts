@@ -1,7 +1,7 @@
-import Car from './car';
+import CarGateway from './gateway/CarGateway';
 
 export default function race(
-  car: Car,
+  car: CarGateway,
   logger: (str: string) => void = console.log
 ): void {
   Array.from({ length: 10 }).forEach(() => {

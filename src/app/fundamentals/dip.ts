@@ -1,23 +1,22 @@
 import race from '@/core/fundamentals/race';
-import TerminalUtil from '../utils/terminalUtil';
-import Fusca from '@/core/fundamentals/fusca';
-import Ferrari from '@/core/fundamentals/ferrari';
-import Civic from '@/core/fundamentals/civic';
-import { terminal } from 'terminal-kit';
+import UiUtilsGateway from '@/core/shared/gateway/UiUtilsGateway';
+import CivicService from '@/core/fundamentals/service/CivicService';
+import FuscaService from '@/core/fundamentals/service/FuscaService';
+import FerrariService from '@/core/fundamentals/service/FerrariService';
 
-export default async function Dip() {
-  TerminalUtil.title('DIP');
+export default async function Dip(uiUtils: UiUtilsGateway): Promise<void> {
+  uiUtils.title('DIP');
 
-  const [type] = await TerminalUtil.select('Tipo de carro?', ['Fusca', 'Civic', 'Ferrari']);
+  const [type] = await uiUtils.select('Tipo de carro?', ['Fusca', 'Civic', 'Ferrari']);
 
   let car;
   if (type === 0)
-    car = new Fusca();
+    car = new FuscaService();
   else if (type === 1)
-    car = new Civic();
+    car = new CivicService();
   else
-    car = new Ferrari();
+    car = new FerrariService();
 
-  race(car, terminal.green);
-  await TerminalUtil.waitEnter();
+  race(car, uiUtils.success);
+  await uiUtils.waitEnter();
 }

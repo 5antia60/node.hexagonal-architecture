@@ -1,6 +1,6 @@
-import Car from './car';
+import CarGateway from '../gateway/CarGateway';
 
-export default class Ferrari implements Car {
+export default class FerrariService implements CarGateway {
   constructor(
     readonly maxSpeed: number = 324,
     private _currentSpeed: number = 0,

@@ -1,6 +1,6 @@
-import Car from './car';
+import CarGateway from '../gateway/CarGateway';
 
-export default class Fusca implements Car {
+export default class FuscaService implements CarGateway {
   constructor(
     readonly maxSpeed: number = 140,
     private _currentSpeed: number = 0,

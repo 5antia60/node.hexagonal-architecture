@@ -1,5 +1,16 @@
 {
+  "singleQuote": true,
+  "trailingComma": "none",
+  "bracketSpacing": true,
+  "arrowParens": "avoid",
   "printWidth": 120,
-  "semi": true,
-  "tabWidth": 2
+  "proseWrap": "always",
+  "overrides": [
+    {
+      "files": "*.ts",
+      "options": {
+        "bracketSpacing": true
+      }
+    }
+  ]
 }

@@ -1,18 +1,18 @@
-import UseCase from '@/core/shared/UseCases';
+import UseCaseGateway from '@/core/shared/gateway/UseCasesGateway';
 import Errors from '@/core/shared/Errors';
 import Id from '@/core/shared/Id';
-import User from '../model/user';
-import CryptoProvider from './CryptoProvider';
-import UserRepository from './UserRepository';
+import UserInterface from '../model/UserInterface';
+import CryptoGateway from '../gateway/CryptoGateway';
+import UserGateway from '../gateway/UserGateway';
 
-export default class RegisterUserService implements UseCase<User, void> {
+export default class RegisterUserService implements UseCaseGateway<UserInterface, void> {
 
   constructor(
-    private repository: UserRepository,
-    private cryptoProvider: CryptoProvider,
+    private repository: UserGateway,
+    private cryptoProvider: CryptoGateway,
   ) { }
 
-  async execute(user: User): Promise<void> {
+  async execute(user: UserInterface): Promise<void> {
     const cryptoPassword = this.cryptoProvider.encrypt(user.password);
     const existingUser = await this.repository.findByEmail(user.email);
 

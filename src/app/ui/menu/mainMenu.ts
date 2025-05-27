@@ -1,11 +1,14 @@
-import TerminalUtil from '@/app/utils/terminalUtil';
+import UiUtilsService from '@/core/shared/service/UiUtilsService';
+import TerminalUtilService from '@/app/ui/utils/TerminalUtilService';
 import fundamentalsMenu from './fundamentalsMenu';
 import userMenu from './userMenu';
 
-export default async function MainMenu(): Promise<void> {
-  TerminalUtil.title('Menu Principal');
+const uiUtils = new UiUtilsService(new TerminalUtilService());
 
-  const [index] = await TerminalUtil.menu([
+export default async function MainMenu(): Promise<void> {
+  uiUtils.title('Menu Principal');
+
+  const [index] = await uiUtils.menu([
     '1. Fundamentos',
     '2. Usuário',
     'Sair',

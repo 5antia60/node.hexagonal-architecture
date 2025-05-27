@@ -1,7 +1,7 @@
+import CryptoGateway from '@/core/user/gateway/CryptoGateway';
 import bcrypt from 'bcrypt';
-import CryptoProvider from '@/core/user/service/CryptoProvider';
 
-export default class CryptoPassword implements CryptoProvider {
+export default class CryptoPasswordService implements CryptoGateway {
 
   encrypt(value: string): string {
     const salt = bcrypt.genSaltSync(10);

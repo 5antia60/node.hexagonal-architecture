@@ -1,24 +1,24 @@
-import Car from '@/core/fundamentals/car';
-import Fusca from '@/core/fundamentals/fusca';
-import TerminalUtil from '../utils/terminalUtil';
-import Ferrari from '@/core/fundamentals/ferrari';
+import CarGateway from '@/core/fundamentals/gateway/CarGateway';
+import UiUtilsGateway from '@/core/shared/gateway/UiUtilsGateway';
+import FuscaService from '@/core/fundamentals/service/FuscaService';
+import FerrariService from '@/core/fundamentals/service/FerrariService';
 
-export default async function Polymorphism() {
-  TerminalUtil.title('Polimorfismo');
+export default async function Polymorphism(uiUtils: UiUtilsGateway): Promise<void> {
+  uiUtils.title('Polimorfismo');
 
-  const [carType] = await TerminalUtil.select('Tipo de carro?', ['Ferrari', 'Fusca']);
-  const car: Car = carType === 0 ? new Ferrari() : new Fusca();
+  const [carType] = await uiUtils.select('Tipo de carro?', ['Ferrari', 'Fusca']);
+  const car: CarGateway = carType === 0 ? new FerrariService() : new FuscaService();
 
   while (true) {
-    TerminalUtil.clear();
-    TerminalUtil.showValueKey('Velocidade Máxima: ', `${ car.maxSpeed } km/h`);
-    TerminalUtil.showValueKey('Velocidade Atual: ', `${ car.currentSpeed } km/h`);
+    uiUtils.clear();
+    uiUtils.showValueKey('Velocidade Máxima: ', `${ car.maxSpeed } km/h`);
+    uiUtils.showValueKey('Velocidade Atual: ', `${ car.currentSpeed } km/h`);
 
-    const [option] = await TerminalUtil.select('Qual opção?', ['Acelerar', 'Frear']);
+    const [option] = await uiUtils.select('Qual opção?', ['Acelerar', 'Frear']);
     
     option === 0 ? car.accelerate() : car.brake();
 
-    const stay = await TerminalUtil.confirm('Deseja continuar?');
+    const stay = await uiUtils.confirm('Deseja continuar?');
 
     if (!stay)
       return;
