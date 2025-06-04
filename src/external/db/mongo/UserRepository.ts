@@ -1,7 +1,7 @@
 import UserInterface from '@/core/user/model/UserInterface';
 import UserGateway from '@/core/user/gateway/UserGateway';
 import { Collection } from 'mongodb';
-import { getDb } from '../../../../db';
+import { getDb } from '../../../db';
 import { collections } from '../routes';
 
 export default class UserRepository implements UserGateway {
