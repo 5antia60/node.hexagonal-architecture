@@ -12,6 +12,9 @@ export default class RegisterUserService implements UseCaseGateway<UserInterface
   ) {}
 
   async execute(user: UserInterface): Promise<void> {
+    if (!user.password)
+      return;
+
     const cryptoPassword = this.cryptoProvider.encrypt(user.password);
     const existingUser = await this.repository.findByEmail(user.email);
 
