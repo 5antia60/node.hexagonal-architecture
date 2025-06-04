@@ -11,7 +11,6 @@ export type AuthUserPayload = {
 };
 
 export type AuthUserProxy = {
-  user: UserInterface;
   token: string;
 };
 
@@ -41,7 +40,6 @@ export default class AuthUserService implements UseCaseGateway<AuthUserPayload, 
 
     return {
       token: this.jwtProvider.generate(existingUser),
-      user,
     };
   }
 
