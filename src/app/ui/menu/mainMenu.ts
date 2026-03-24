@@ -3,7 +3,7 @@ import TerminalUtilService from '@/app/ui/utils/TerminalUtilService';
 import fundamentalsMenu from './fundamentalsMenu';
 import userMenu from './userMenu';
 
-const uiUtils = new UiUtilsService(new TerminalUtilService());
+const uiUtils = new UiUtilsService(TerminalUtilService.instance);
 
 export default async function MainMenu(): Promise<void> {
   uiUtils.title('Menu Principal');

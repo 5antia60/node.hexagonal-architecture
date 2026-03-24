@@ -3,7 +3,7 @@ import TerminalUtilService from '@/app/ui/utils/TerminalUtilService';
 import Polymorphism from '../../fundamentals/polymorphism';
 import Dip from '../../fundamentals/dip';
 
-const uiUtils = new UiUtilsService(new TerminalUtilService());
+const uiUtils = new UiUtilsService(TerminalUtilService.instance);
 
 export default async function fundamentalsMenu(): Promise<void> {
   uiUtils.title('Fundamentos');

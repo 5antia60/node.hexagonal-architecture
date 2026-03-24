@@ -3,7 +3,7 @@ import UiUtilsService from '@/core/shared/service/UiUtilsService';
 import RegisterUser from '../../useCases/user/registerUser';
 import FindUser from '@/app/useCases/user/findUser';
 
-const uiUtils = new UiUtilsService(new TerminalUtilService());
+const uiUtils = new UiUtilsService(TerminalUtilService.instance);
 
 export default async function userMenu(): Promise<void> {
   uiUtils.title('Usuário');
