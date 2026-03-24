@@ -14,6 +14,6 @@ export default async function Dip(uiUtils: UiUtilsGateway): Promise<void> {
   else if (type === 1) car = new CivicService();
   else car = new FerrariService();
 
-  race(car, uiUtils.success);
+  race(car, uiUtils.success.bind(uiUtils));
   await uiUtils.waitEnter();
 }

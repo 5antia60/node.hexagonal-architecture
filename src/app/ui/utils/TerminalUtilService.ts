@@ -1,62 +1,102 @@
 import UiUtilsGateway from '@/core/shared/gateway/UiUtilsGateway';
-import { terminal } from 'terminal-kit';
+import { confirm, input, select } from '@inquirer/prompts';
 
 export default class TerminalUtilService implements UiUtilsGateway {
+  static #instance: TerminalUtilService;
+
+  public static get instance(): TerminalUtilService {
+    if (!TerminalUtilService.#instance)
+      TerminalUtilService.#instance = new TerminalUtilService();
+
+    return TerminalUtilService.#instance;
+  }
+
+  private static readonly colors = {
+    reset: '\x1b[0m',
+    magenta: '\x1b[35m',
+    yellow: '\x1b[33m',
+    green: '\x1b[32m',
+    red: '\x1b[31m',
+    white: '\x1b[37m'
+  };
+
+  private write(text: string): void {
+    process.stdout.write(text);
+  }
+
+  private color(text: string, color: keyof typeof TerminalUtilService.colors): string {
+    return `${TerminalUtilService.colors[color]}${text}${TerminalUtilService.colors.reset}\n`;
+  }
+
   public title(text: string): void {
-    terminal.clear();
-    terminal.magenta(`${text}\n`);
-    terminal.magenta('-'.repeat(text.length) + '\n');
+    this.clear();
+    this.write(this.color(`${text}\n`, 'magenta'));
+    this.write(this.color(`${'-'.repeat(text.length)}`, 'magenta'));
   }
 
   public clear(): void {
-    terminal.clear();
+    process.stdout.write('\x1b[2J\x1b[H');
   }
 
   public showValueKey(key: string, value: string | number): void {
-    terminal.yellow(key).green(value).white('\n');
+    this.write(this.color(key, 'yellow') + this.color(String(value), 'green') + this.color('\n', 'white'));
   }
 
   public async requiredField(label: string, defaultValue: string = ''): Promise<string> {
-    terminal.yellow(`\n${label}`);
-
-    const value = await terminal.inputField({
+    const value = await input({
+      message: label,
       default: defaultValue
-    }).promise;
+    });
 
     if (value) return value;
 
-    return this.requiredField(label);
+    return this.requiredField(label, defaultValue);
   }
 
   public async menu(options: string[]): Promise<[number, string]> {
-    const result = await terminal.singleColumnMenu(options).promise;
-    return [result.selectedIndex, result.selectedText];
+    const selected = await select({
+      message: '',
+      choices: options.map((option, index) => ({
+        name: option,
+        value: { index, text: option }
+      }))
+    });
+
+    return [selected.index, selected.text];
   }
 
   public async select(text: string, options: string[]): Promise<[number, string]> {
-    terminal.yellow('\n' + text);
+    const selected = await select({
+      message: text,
+      choices: options.map((option, index) => ({
+        name: option,
+        value: { index, text: option }
+      }))
+    });
 
-    const result = await terminal.singleLineMenu(options).promise;
-    return [result.selectedIndex, result.selectedText];
+    return [selected.index, selected.text];
   }
 
   public async confirm(text: string): Promise<boolean> {
-    terminal.yellow('\n' + text);
-
-    const result = await terminal.singleLineMenu(['Sim', 'Não']).promise;
-    return result.selectedIndex === 0;
+    return confirm({
+      message: text,
+      default: true
+    });
   }
 
   public async waitEnter(): Promise<void> {
-    terminal.white('\nPressione ENTER para continuar...');
-    await terminal.inputField({ echo: false }).promise;
+    await input({
+      message: '\nPressione ENTER para continuar...',
+      default: '',
+      transformer: () => ''
+    });
   }
 
   public success(text: string, dropLine: boolean = true): void {
-    terminal.green((dropLine ? '\n' : '') + text);
+    this.write(this.color((dropLine ? '\n' : '') + text, 'green'));
   }
 
   public error(text: string, dropLine: boolean = true): void {
-    terminal.red((dropLine ? '\n' : '') + text);
+    this.write(this.color((dropLine ? '\n' : '') + text, 'red'));
   }
 }
